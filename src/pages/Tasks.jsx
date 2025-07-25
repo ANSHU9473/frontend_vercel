@@ -34,7 +34,7 @@ const Tasks = () => {
     }
   };
 
-  // Toggle task
+  // Toggle completion
   const toggleTask = async (task) => {
     try {
       const res = await axios.put(`https://backend-nine-virid-30.vercel.app/api/tasks/${task._id}`, {
@@ -78,19 +78,37 @@ const Tasks = () => {
 
       <ul className="space-y-2">
         {tasks.map((task) => (
-          <li key={task._id} className="flex justify-between items-center border p-2 rounded">
-            <span
-              onClick={() => toggleTask(task)}
-              className={`flex-1 cursor-pointer ${task.completed ? "line-through text-gray-400" : ""}`}
-            >
-              {task.title}
-            </span>
-            <button
-              onClick={() => deleteTask(task._id)}
-              className="bg-red-500 text-white px-3 py-1 rounded"
-            >
-              Delete
-            </button>
+          <li
+            key={task._id}
+            className={`flex justify-between items-center border p-2 rounded ${
+              task.completed ? "bg-green-100" : "bg-gray-50"
+            }`}
+          >
+            <div className="flex flex-col flex-1">
+              <span className={`text-lg ${task.completed ? "line-through text-gray-500" : ""}`}>
+                {task.title}
+              </span>
+              <span className="text-xs text-gray-500">
+                Status: {task.completed ? "Complete " : "Not Complete "}
+              </span>
+            </div>
+
+            <div className="flex gap-2">
+              <button
+                onClick={() => toggleTask(task)}
+                className={`px-3 py-1 rounded ${
+                  task.completed ? "bg-yellow-500 text-white" : "bg-green-500 text-white"
+                }`}
+              >
+                {task.completed ? "Mark Incomplete" : "Mark Complete"}
+              </button>
+              <button
+                onClick={() => deleteTask(task._id)}
+                className="px-3 py-1 rounded bg-red-500 text-white"
+              >
+                Delete
+              </button>
+            </div>
           </li>
         ))}
       </ul>

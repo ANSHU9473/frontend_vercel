@@ -7,14 +7,14 @@ import Tasks from "./pages/Tasks";
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  // Check login status on mount
+ 
   useEffect(() => {
     if (localStorage.getItem("userId")) {
       setIsLoggedIn(true);
     }
   }, []);
 
-  // Logout function
+ 
   const handleLogout = () => {
     localStorage.removeItem("userId");
     setIsLoggedIn(false);
@@ -23,7 +23,7 @@ function App() {
   return (
     <BrowserRouter>
       <div className="p-4 min-h-screen bg-gray-100">
-        {/* Show Logout button only if logged in */}
+       
         {isLoggedIn && (
           <button
             onClick={handleLogout}
@@ -34,7 +34,7 @@ function App() {
         )}
 
         <Routes>
-          {/* Redirect root to login or tasks based on login */}
+         
           <Route
             path="/"
             element={
@@ -42,13 +42,13 @@ function App() {
             }
           />
 
-          {/* Login page */}
+        
           <Route path="/login" element={<Login setIsLoggedIn={setIsLoggedIn} />} />
 
-          {/* Signup page */}
+         
           <Route path="/signup" element={<Signup />} />
 
-          {/* Tasks page (protected) */}
+      
           <Route
             path="/tasks"
             element={isLoggedIn ? <Tasks /> : <Navigate to="/login" replace />}
