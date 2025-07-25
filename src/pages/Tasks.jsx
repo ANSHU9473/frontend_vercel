@@ -10,7 +10,7 @@ const Tasks = () => {
   // Fetch tasks
   const fetchTasks = async () => {
     try {
-      const res = await axios.get(`http://localhost:5000/api/tasks/${userId}`);
+      const res = await axios.get(`https://backend-nine-virid-30.vercel.app/api/tasks/${userId}`);
       setTasks(res.data);
     } catch (err) {
       setMsg("Error loading tasks");
@@ -25,7 +25,7 @@ const Tasks = () => {
   const addTask = async () => {
     if (!title) return setMsg("Please enter a task title");
     try {
-      const res = await axios.post("http://localhost:5000/api/tasks/add", { title, userId });
+      const res = await axios.post("https://backend-nine-virid-30.vercel.app/api/tasks/add", { title, userId });
       setTasks([res.data.task, ...tasks]);
       setTitle("");
       setMsg("Task added");
@@ -37,7 +37,7 @@ const Tasks = () => {
   // Toggle task
   const toggleTask = async (task) => {
     try {
-      const res = await axios.put(`http://localhost:5000/api/tasks/${task._id}`, {
+      const res = await axios.put(`https://backend-nine-virid-30.vercel.app/api/tasks/${task._id}`, {
         title: task.title,
         completed: !task.completed,
       });
@@ -50,7 +50,7 @@ const Tasks = () => {
   // Delete task
   const deleteTask = async (taskId) => {
     try {
-      await axios.delete(`http://localhost:5000/api/tasks/${taskId}`);
+      await axios.delete(`https://backend-nine-virid-30.vercel.app/api/tasks/${taskId}`);
       setTasks(tasks.filter((t) => t._id !== taskId));
     } catch (err) {
       setMsg("Error deleting task");
